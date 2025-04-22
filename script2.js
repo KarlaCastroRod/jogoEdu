@@ -1,23 +1,28 @@
 const perguntas = [
     {
-      pergunta: "Qual é o **sinônimo** de FELIZ?",
-      opcoes: ["Triste", "Contente", "Bravo"],
-      correta: "Contente"
+      pergunta: "Quanto é 36 ÷ 6?",
+      opcoes: ["5", "6", "7"],
+      correta: "6"
     },
     {
-      pergunta: "Qual é o **antônimo** de ALTO?",
-      opcoes: ["Grande", "Pequeno", "Baixo"],
-      correta: "Baixo"
+      pergunta: "Quanto é 81 ÷ 9?",
+      opcoes: ["9", "8", "7"],
+      correta: "9"
     },
     {
-      pergunta: "Qual é o **sinônimo** de INTELIGENTE?",
-      opcoes: ["Esperto", "Lento", "Teimoso"],
-      correta: "Esperto"
+      pergunta: "Quanto é 56 ÷ 7?",
+      opcoes: ["6", "7", "8"],
+      correta: "8"
     },
     {
-      pergunta: "Qual é o **antônimo** de RÁPIDO?",
-      opcoes: ["Devagar", "Ligado", "Curto"],
-      correta: "Devagar"
+      pergunta: "Quanto é 100 ÷ 10?",
+      opcoes: ["9", "10", "11"],
+      correta: "10"
+    },
+    {
+      pergunta: "Quanto é 49 ÷ 7?",
+      opcoes: ["7", "6", "8"],
+      correta: "7"
     }
   ];
   
@@ -42,25 +47,23 @@ const perguntas = [
     document.getElementById("proximo").style.display = "none";
   }
   
-  function verificarResposta(respostaSelecionada) {
+  function verificarResposta(resposta) {
     const atual = perguntas[indiceAtual];
     const feedback = document.getElementById("feedback");
   
-    if (respostaSelecionada === atual.correta) {
+    if (resposta === atual.correta) {
       pontuacao++;
       feedback.textContent = "✅ Correto!";
       feedback.style.color = "green";
     } else {
-      feedback.textContent = `Errado! A resposta correta é: ${atual.correta}`;
+      feedback.textContent = `❌ Errado! Resposta certa: ${atual.correta}`;
       feedback.style.color = "red";
     }
   
     document.getElementById("pontuacao").textContent = `Pontuação: ${pontuacao}`;
     document.getElementById("proximo").style.display = "inline-block";
   
-    // Desabilita os botões
-    const botoes = document.querySelectorAll("#opcoes button");
-    botoes.forEach(botao => botao.disabled = true);
+    document.querySelectorAll("#opcoes button").forEach(btn => btn.disabled = true);
   }
   
   function proximaPergunta() {
@@ -69,9 +72,9 @@ const perguntas = [
     if (indiceAtual < perguntas.length) {
       carregarPergunta();
     } else {
-      document.getElementById("game-container").innerHTML = `
-        <h2>Fim do Jogo!</h2>
-        <p>Sua pontuação final foi: ${pontuacao}/${perguntas.length}</p>
+      document.getElementById("quiz").innerHTML = `
+        <h2>Fim da Atividade!</h2>
+        <p>Você acertou ${pontuacao} de ${perguntas.length} perguntas.</p>
         <button onclick="location.reload()">Jogar Novamente</button>
       `;
     }
