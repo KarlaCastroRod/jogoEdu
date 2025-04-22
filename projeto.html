@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos interativos</title>
+</head>
+<body style="background-color: #fcf5c7;">
+  
+
+    <style>
+    
+        .card:hover .card-background {
+            transform: scale(1.15) translateZ(0);
+            background-size: 300px;
+        }
+        
+        .card-grid:hover > .card:not(:hover) {
+            transform: scale(.9);
+        }
+        
+        .card-grid:hover > .card:not(:hover) .card-background,
+        .card-grid:hover > .card:not(:hover) .card-category {
+            filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
+        }
+        
+     
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 15px;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            position: relative;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.3s ease;
+        }
+        
+        .card-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 10px;
+            height: 80%;
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: flex-end;
+            
+        }
+        
+        .card-category {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        background-color: #00afb9;
+        color: #00afb9;
+        padding: 0 1rem;
+
+    }
+    .logo a{
+        color: #ffbf69;
+        text-decoration: none;
+    }
+    .logo span{
+        color: #277da1;
+    }
+    .nav ul{
+        display: flex;
+        list-style-type: none;
+
+    }
+    .nav ul li{
+        margin: 0 10px;
+        padding: 0 10px;
+    }
+    .nav ul li a{
+       text-decoration: none;
+       color: #277da1;
+       font-size: 20px;
+       transition: all ease .3s;
+    }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h2><a href="#">Jogos Educativos<span>.com</span></a></h2>
+        </div>
+        <div class="nav-links"></div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Serviços</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+        </div>
+        </body>
+    <div class="card-grid">
+        <a href="pagina-portugues.html" class="card-link">
+        <div class="card">
+            <div class="card-background" style="background-image: url('imagem/unnamed.png')"></div>
+            <div class="card-content">
+                <div class="card-category">Grafia</div>
+                <h3 class="card-title">Português</h3>
+            </div>
+        </div>
+    </a>
+        
+    <a href="pagina-portugues2.html" class="card-link">
+        <div class="card">
+            <div class="card-background" style="background-image: url('imagem/unnamed (2).png')"></div>
+            <div class="card-content">
+                <div class="card-category">Adivinha a palavra</div>
+                <h3 class="card-title">Português</h3>
+            </div>
+        </div>
+    </a>
+
+    <a href="insira a pagina" class="card-link">
+        <div class="card">
+            <div class="card-background" style="background-image: url('imagem/unnamed\ \(4\).png')"></div>
+            <div class="card-content">
+                <div class="card-category">Vocabulário</div>
+                <h3 class="card-title">Jogo da Memória</h3>
+            </div>
+        </div>
+    </a>
+    
+    <a href="insira a pagina" class="card-link">
+        <div class="card">
+            <div class="card-background" style="background-image: url('imagem/unnamed\ \(5\).png')"></div>
+            <div class="card-content">
+                <div class="card-category">Coordenadas</div>
+                <h3 class="card-title">Batalha Naval</h3>
+            </div>
+        </div>
+    </a>
+    
+    <a href="insira o link" class="card-link">
+        <div class="card">
+            <div class="card-background" style="background-image: url('imagem/unnamed\ \(6\).png')"></div>
+            <div class="card-content">
+                <div class="card-category">Desafio</div>
+                <h3 class="card-title">Quiz Matemático</h3>
+            </div>
+        </div>
+    </a>
+    <a href="insira o link" class="card-link">
+        <div class="card">
+            <div class="card-background" style="background-image: url('imagem/unnamed\ \(6\).png')"></div>
+            <div class="card-content">
+                <div class="card-category">Desafio</div>
+                <h3 class="card-title">Quiz Matemático</h3>
+            </div>
+        </div>
+    </a>
+</div>
+</body>
+</html>

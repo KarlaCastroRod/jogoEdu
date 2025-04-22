@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogo de Completar Palavras</title>
+</head>
+<link rel="stylesheet" href="2.css">
+
+<body style="background-color: #f7d6e0;">
+    <h1>Complete a Palavra!</h1>
+    <div id="game">
+        <p id="dica"></p>
+        <h2 id="palavraIncompleta"></h2>
+        <div id="opcoes"></div>
+        <p id="feedback"></p>
+        <p id="score">Pontuação: 0</p>
+        <button onclick="proximaRodada()">Próxima Palavra</button>
+    </div>
+
+    <script>
+        const palavras = [
+            { palavra: "girassol", dica: "Flor amarela que segue o sol" },
+            { palavra: "computador", dica: "Você está usando um agora!" },
+            { palavra: "bicicleta", dica: "Meio de transporte com pedais" },
+            { palavra: "astronauta", dica: "Profissional que vai ao espaço" },
+            { palavra: "dinossauro", dica: "Animal pré-histórico gigante" }
+        ];
+
+        let rodada = 0;
+        let pontuacao = 0;
+        let palavraAtual = '';
+        let lacunas = [];
+        let letrasFaltando = [];
+
+        function embaralhar(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function gerarLacunas(palavra) {
+            const indices = [];
+            while (indices.length < Math.min(3, palavra.length)) {
+                let i = Math.floor(Math.random() * palavra.length);
+                if (!indices.includes(i)) indices.push(i);
+            }
+
+            const resultado = palavra.split('').map((letra, i) => (
+                indices.includes(i) ? "_" : letra
+            ));
+
+            letrasFaltando = indices.map(i => ({ index: i, letra: palavra[i] }));
+            return resultado;
+        }
+
+        function mostrarRodada() {
+            palavraAtual = palavras[rodada].palavra;
+            const dica = palavras[rodada].dica;
+
+            document.getElementById('dica').textContent = `Dica: ${dica}`;
+
+            lacunas = gerarLacunas(palavraAtual);
+            atualizarPalavra();
+
+            mostrarOpcoes();
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function atualizarPalavra() {
+            document.getElementById('palavraIncompleta').textContent = lacunas.join('');
+        }
+
+        function mostrarOpcoes() {
+            const container = document.getElementById('opcoes');
+            container.innerHTML = '';
+
+            if (letrasFaltando.length === 0) return;
+
+            const proximaLetra = letrasFaltando[0].letra;
+            const opcoes = embaralhar([
+                proximaLetra,
+                String.fromCharCode(97 + Math.floor(Math.random() * 26)),
+                String.fromCharCode(97 + Math.floor(Math.random() * 26))
+            ]);
+
+            opcoes.forEach(letra => {
+                const btn = document.createElement('button');
+                btn.textContent = letra.toUpperCase();
+                btn.onclick = () => verificarLetra(letra);
+                container.appendChild(btn);
+            });
+        }
+
+        function verificarLetra(letraEscolhida) {
+            const feedback = document.getElementById('feedback');
+
+            const { index, letra } = letrasFaltando[0];
+
+            if (letraEscolhida === letra) {
+                lacunas[index] = letra;
+                letrasFaltando.shift();
+                pontuacao++;
+                feedback.textContent = "Muito bem!";
+            } else {
+                feedback.textContent = `Ops! A letra correta era "${letra.toUpperCase()}".`;
+                letrasFaltando.shift(); // ainda remove, mas sem pontuar
+            }
+
+            atualizarPalavra();
+            document.getElementById('score').textContent = `Pontuação: ${pontuacao}`;
+
+            if (letrasFaltando.length > 0) {
+                mostrarOpcoes();
+            } else {
+                document.getElementById('opcoes').innerHTML = '<p>Palavra completa!</p>';
+            }
+        }
+
+        function proximaRodada() {
+            rodada++;
+            if (rodada < palavras.length) {
+                mostrarRodada();
+            } else {
+                document.getElementById('game').innerHTML = `<h2>Fim do jogo!</h2><p>Sua pontuação final foi ${pontuacao} pontos.</p>`;
+            }
+        }
+
+        // Começa o jogo
+        mostrarRodada();
+    </script>
+</body>
+

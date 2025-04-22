@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogo de Grafia</title>
+    
+</head>
+<body style="background-color: #90be6d;">
+    <link rel="stylesheet" href="2.css">
+    <h1>Jogo de Grafia</h1>
+    <div id="game">
+        <p id="pergunta"></p>
+        <div id="opcoes"></div>
+        <p id="feedback" class="feedback"></p>
+        <p id="score">Pontuação: 0/4</p>
+        <button onclick="proximaRodada()">Próxima</button>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                palavraCorreta: "linguiça",
+                opcoes: ["linguiça", "lunguiça", "linguissa"]
+            },
+            {
+                palavraCorreta: "exceção",
+                opcoes: ["exceção", "ecseção", "esseção"]
+            },
+            {
+                palavraCorreta: "privilegiado",
+                opcoes: ["privelejado", "privilegiado", "priviligiado"]
+            },
+            {
+                palavraCorreta: "desperdício",
+                opcoes: ["desperdício", "desperdiço", "desperdissio"]
+            }
+        ];
+
+        let rodadaAtual = 0;
+        let pontuacao = 0;
+
+        function embaralhar(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function mostrarPergunta() {
+            const pergunta = perguntas[rodadaAtual];
+            const opcoesEmbaralhadas = embaralhar([...pergunta.opcoes]);
+
+            document.getElementById('pergunta').textContent = `Qual a grafia correta?`;
+            const opcoesDiv = document.getElementById('opcoes');
+            opcoesDiv.innerHTML = '';
+
+            opcoesEmbaralhadas.forEach(opcao => {
+                const button = document.createElement('button');
+                button.textContent = opcao;
+                button.onclick = () => verificarResposta(opcao);
+                opcoesDiv.appendChild(button);
+            });
+
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function verificarResposta(resposta) {
+            const correta = perguntas[rodadaAtual].palavraCorreta;
+            const feedback = document.getElementById('feedback');
+
+            if (resposta === correta) {
+                pontuacao++;
+                feedback.textContent = "Correto!";
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `Errado! O correto é ${correta}.`;
+                feedback.className = 'feedback incorrect';
+            }
+
+            document.getElementById('score').textContent = `Pontuação: ${pontuacao}/${perguntas.length}`;
+        }
+
+        function proximaRodada() {
+            rodadaAtual++;
+            if (rodadaAtual < perguntas.length) {
+                mostrarPergunta();
+            } else {
+                document.getElementById('game').innerHTML = `<h2>Jogo finalizado!</h2><p>Sua pontuação: ${pontuacao}/${perguntas.length}</p>`;
+            }
+        }
+
+        // Iniciar primeira rodada
+        mostrarPergunta();
+    </script>
+</body>
+</html>
